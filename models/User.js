@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const UserSchema = newSchema(
+const UserSchema = new Schema(
   {
     username: {
       type: String,
@@ -12,7 +12,7 @@ const UserSchema = newSchema(
       type: String,
       unique: true,
       required: true,
-      trim: true,
+      match: [/.+@.+\..+/, 'Please enter a valid e-mail address']
     },
     thoughts: [
       {
@@ -37,7 +37,7 @@ const UserSchema = newSchema(
 
 
 UserSchema.virtual('friendCount').get(function() {
-    return this.friends.reduce((total, friends) => total + friends.replies.length + 1, 0); // Here we're using the .reduce() method to tally up the total of every comment with its replies. In its basic form
+    return this.friends.length;
   });
 
 const User = model("User", UserSchema);

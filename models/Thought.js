@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-ReactionSchema = new Schema({
+const ReactionSchema = new Schema({
   reationId: {
     type: Schema.Types.ObjectId,
     default: () => new Types.ObjectId(),
@@ -9,7 +9,7 @@ ReactionSchema = new Schema({
   reationBody: {
     type: String,
     required: true,
-    //280 character max
+    maxLength: 280
   },
   username: {
     type: String,
@@ -34,7 +34,8 @@ const ThoughtSchema = new Schema({
   thoughtText: {
     type: String,
     required: true,
-    //Must be between 1 and 280 characters
+    minLength: 1,
+    maxLength: 280
   },
   createdAt: {
     type: Date,
